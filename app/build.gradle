@@ -1,0 +1,82 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlinx-serialization'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.example.boilerplate"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://example.com/\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            buildConfigField "String", "BASE_URL", "\"https://example.com/\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation deps.core_ktx
+    implementation deps.app_compat
+    implementation deps.material
+    implementation deps.constraintlayout
+    implementation deps.fragment
+    kapt deps.kotlinx_metadata_jvm
+
+    //Dependency Injection
+    implementation deps.hilt.core
+    kapt deps.hilt.compiler
+
+    //Json Serializer
+    implementation deps.serialization.json
+
+    //Retrofit
+    implementation deps.retrofit
+    implementation deps.retrofit_serialization_converter
+
+    //Okhttp
+    implementation deps.okhttp.core
+    implementation deps.okhttp.logging_interceptor
+
+    //Coroutines
+    implementation deps.coroutines
+
+    //LifecycleScope + ViewModelScope
+    implementation deps.lifecycle.viewmodel
+    implementation deps.lifecycle.runtime
+
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.ext_junit
+    androidTestImplementation deps.espresso.core
+}
