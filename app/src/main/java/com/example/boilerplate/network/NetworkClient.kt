@@ -5,6 +5,7 @@ import com.example.boilerplate.model.User
 import com.example.boilerplate.model.request.LoginRequest
 import com.example.boilerplate.model.response.LoginResponse
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -16,12 +17,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 private interface RetrofitNetwork {
-    @POST("/login")
+    @POST("auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 }
 
 @Singleton
 class NetworkClient @Inject constructor(json: Json) : ExampleDataSource {
+    @OptIn(ExperimentalSerializationApi::class)
     private val client = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(
         OkHttpClient.Builder()
             .addInterceptor(

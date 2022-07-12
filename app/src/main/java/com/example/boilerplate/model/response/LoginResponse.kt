@@ -4,4 +4,4 @@ import com.example.boilerplate.model.User
 import kotlinx.serialization.Serializable
 
 @Serializable
-class LoginResponse(val user: User)
+class LoginResponse(val user: User, val message: String)

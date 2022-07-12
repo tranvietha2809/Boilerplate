@@ -3,4 +3,4 @@ package com.example.boilerplate.model.request
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginRequest (val username : String , val password: String)
+data class LoginRequest (val email : String , val password: String)

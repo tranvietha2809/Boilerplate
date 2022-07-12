@@ -1,21 +1,22 @@
 package com.example.boilerplate.ui.login
 
+import android.R.attr.data
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.boilerplate.MainActivity
-import com.example.boilerplate.R
 import com.example.boilerplate.databinding.FragmentLoginBinding
 import com.example.boilerplate.viewmodels.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -45,6 +46,19 @@ class LoginFragment : Fragment() {
                     when(it.isLoading) {
                         true -> (activity as MainActivity).activityMainBinding.progressLogin.visibility = View.VISIBLE
                         false -> (activity as MainActivity).activityMainBinding.progressLogin.visibility = View.GONE
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect {
+                    if(it.errorMessage != null) {
+                        Toast.makeText(
+                            activity, it.errorMessage,
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
