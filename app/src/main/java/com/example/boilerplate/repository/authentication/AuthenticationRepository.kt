@@ -5,5 +5,5 @@ import com.example.boilerplate.network.ApiResult
 import kotlinx.coroutines.flow.Flow
 
 interface AuthenticationRepository {
-    suspend fun login(username: String, password: String) : Flow<ApiResult<User?>>
+    fun login(username: String, password: String) : Flow<ApiResult<User?>>
 }

@@ -1,5 +1,7 @@
 package com.example.boilerplate.network
 
+import java.lang.Exception
+
 enum class ApiStatus {
     SUCCESS,
     ERROR,

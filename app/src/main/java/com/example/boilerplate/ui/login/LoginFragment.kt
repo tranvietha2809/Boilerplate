@@ -15,6 +15,7 @@ import com.example.boilerplate.MainActivity
 import com.example.boilerplate.databinding.FragmentLoginBinding
 import com.example.boilerplate.viewmodels.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -35,7 +36,9 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObserver()
         binding.btnLogin.setOnClickListener {
-            viewModel.doLogin(username = binding.etEmail.text.toString(), password = binding.etEmail.text.toString())
+            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO){
+                viewModel.doLogin(username = binding.etEmail.text.toString(), password = binding.etEmail.text.toString())
+            }
         }
     }
 

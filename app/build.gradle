@@ -77,6 +77,9 @@ dependencies {
     implementation deps.lifecycle.runtime
 
     testImplementation deps.junit
+    testImplementation deps.mockK.core
+    testImplementation deps.mockK.jvm
+    testImplementation deps.coroutines_test
     androidTestImplementation deps.atsl.ext_junit
     androidTestImplementation deps.espresso.core
 }
